@@ -16,8 +16,9 @@ LEFT = 180
 RIGHT = 0
 
 
-class Snake:
+class Snake(Turtle):
     def __init__(self):
+        super().__init__()
         self.segments = []
         self.create_snake()  # automatically calls this function when object is created.
         self.head = self.segments[
@@ -28,6 +29,16 @@ class Snake:
         """Create snake body using 3 square shapes"""
         for position in STARTING_POSITIONS:
             self.add_segment(position)
+
+    def reset(self):
+        for seg in self.segments:
+            seg.goto(
+                1000, 1000
+            )  # move existing segment off of the screen b/c clear() method doesn't really remove what's on screen so this is a way to hide them off screen.
+
+        self.segments.clear()  # clear all the segments from list
+        self.create_snake()
+        self.head = self.segments[0]
 
     def add_segment(
         self, position
